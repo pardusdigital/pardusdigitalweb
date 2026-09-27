@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Pardus Digital"
+description = "A conversion-focused single-page website for Pardus Digital, a creative and digital marketing agency helping cafes, restaurants, and local businesses grow through websites, local SEO, social media, and WhatsApp-led bookings."
+version = "1.0.0"
+id = "artifacts/pardus-digital"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25512
+
+[services.development]
+run = "pnpm --filter @workspace/pardus-digital run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/pardus-digital", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/pardus-digital/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25512"
+BASE_PATH = "/"
